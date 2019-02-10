@@ -16,7 +16,9 @@ ipaddr = "192.168.1.174"
 
 url = 'https://radsn23.github.io/' + random.choice(songs)
 # "https://radsn23.github.io/pink.mp3"  # enter the URL of the file you want to play here
-
+service = "testing"
+reason = "this"
+message = "method."
 # API key
 key = "ku1IYMERCz8iqwNsMFDMSJJZ1kfYyOhA"
 

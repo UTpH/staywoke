@@ -21,7 +21,6 @@ def eye_aspect_ratio(eye):
     ear = (A + B) / (2.0 * C)
     return ear
 
-
 thresh = 0.25
 frame_check = 20
 detect = dlib.get_frontal_face_detector()
@@ -39,9 +38,11 @@ songs = ['pink.mp3', 'imagine_dragons.mp3', 'the_nights.mp3']
 
 # speaker's IP
 ipaddr = "192.168.1.174"
-
+service = "testing"
+reason = "this"
+message = "method."
 # API key
-key = "ku1IYMERCz8iqwNsMFDMSJJZ1kfYyOhA"
+Key = "ku1IYMERCz8iqwNsMFDMSJJZ1kfYyOhA"
 
 # volume of speaker
 volumeVal = "25"
@@ -66,20 +67,20 @@ while True:
         if ear < thresh:
             flag += 1
             print(flag)
-            if flag >= frame_check:
-                # random song selected and song url formed
-                url = 'https://radsn23.github.io/' + random.choice(songs)
-
-                sendXML = "<play_info><app_key>" + key + "</app_key><url>" + url + "</url><service>" + service + "</service><reason>" + reason + "</reason><message>" + message + "</message><volume>" + volumeVal + "</volume></play_info>"
-
-                # form and send the /speaker POST request to start song
-                send = requests.post('http://' + ipaddr + ':8090/speaker', data=sendXML)
-
+            if flag >= frame_check: 
                 # print ALERT on screen upon drowsy detection
                 cv2.putText(frame, "****************ALERT!****************", (10, 30),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
                 cv2.putText(frame, "****************ALERT!****************", (10, 325),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+                # random song selected and song url formed
+                song = random.choice(songs)
+                url = 'https://radsn23.github.io/' + song
+               
+                sendXML = "<play_info><app_key>" + Key + "</app_key><url>" + url + "</url><service>" + service + "</service><reason>" + reason + "</reason><message>" + message + "</message><volume>" + volumeVal + "</volume></play_info>"
+                # form and send the /speaker POST request to start song
+                send = requests.post('http://' + ipaddr + ':8090/speaker', data=sendXML)
+      
         else:
             flag = 0
             # form and send the /speaker GET request to stop song
